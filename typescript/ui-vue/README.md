@@ -8,7 +8,7 @@ Compact Vue example for the LangChain streaming frontend package. It shows a min
 - Computed rendering of streamed messages.
 - Loading and error state for the remote stream.
 - Optimistic user-message insertion through `optimisticValues`.
-- A simple LangGraph `StateGraph` that appends an AI message to state.
+- A LangGraph `StateGraph` backed by local Ollama and YouTrack MCP tools.
 
 ## Prerequisites
 
@@ -18,7 +18,18 @@ Create the shared environment file from the repository root:
 cp .env.example .env
 ```
 
-Fill in the OpenAI provider key listed in `.env`. The LangGraph dev server loads the root file through `langgraph.json`.
+Fill in the YouTrack MCP authorization header listed in `.env`. The LangGraph dev server loads the root file through `langgraph.json`.
+
+```bash
+AUTH_HEADER="Bearer <youtrack-token>"
+```
+
+Make sure Ollama is running and the model from `src/agent.mts` is available:
+
+```bash
+ollama pull qwen3:14b
+ollama serve
+```
 
 Install from the TypeScript workspace root:
 
@@ -48,7 +59,7 @@ pnpm preview
 
 ## Graph
 
-`langgraph.json` registers the `agent` assistant from `src/agent.mts`. The graph stores `messages`, calls `ChatOpenAI`, and returns the next AI message.
+`langgraph.json` registers the `agent` assistant from `src/agent.mts`. The graph stores `messages`, loads YouTrack tools through `mcp-remote`, binds them to `ChatOllama`, and loops through a `ToolNode` whenever the model requests a tool call.
 
 The client connects to:
 
