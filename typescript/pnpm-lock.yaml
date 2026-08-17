@@ -650,9 +650,21 @@ importers:
       '@langchain/vue':
         specifier: ^1.0.27
         version: 1.0.27(@langchain/core@1.2.3(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(ws@8.21.1))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(svelte@5.56.5(@typescript-eslint/types@8.64.0))(vue@3.5.39(typescript@7.0.2))
+      markdown-it:
+        specifier: 14.3.0
+        version: 14.3.0
+      markdown-it-mermaid:
+        specifier: ^0.2.5
+        version: 0.2.5
+      markdown-it-task-lists:
+        specifier: ^2.1.1
+        version: 2.1.1
       mcp-remote:
         specifier: ^0.1.38
         version: 0.1.38
+      mermaid:
+        specifier: ^11.16.0
+        version: 11.16.0
       vue:
         specifier: ^3.5.39
         version: 3.5.39(typescript@7.0.2)
@@ -663,6 +675,9 @@ importers:
       '@langchain/langgraph-cli':
         specifier: ^1.4.3
         version: 1.4.3(@langchain/core@1.2.3(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(ws@8.21.1))(@langchain/langgraph-checkpoint@1.1.3(@langchain/core@1.2.3(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(ws@8.21.1)))(@langchain/langgraph-sdk@1.9.26(@langchain/core@1.2.3(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(ws@8.21.1))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(svelte@5.56.5(@typescript-eslint/types@8.64.0))(vue@3.5.39(typescript@7.0.2)))(@langchain/langgraph@1.4.8(@langchain/core@1.2.3(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(ws@8.21.1))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(svelte@5.56.5(@typescript-eslint/types@8.64.0))(vue@3.5.39(typescript@7.0.2))(zod@4.4.3))(@opentelemetry/api@1.9.1)(openai@6.47.0(ws@8.21.1)(zod@4.4.3))(typescript@7.0.2)(ws@8.21.1)
+      '@types/markdown-it':
+        specifier: ^14.1.2
+        version: 14.1.2
       '@types/node':
         specifier: ^26.2.0
         version: 26.2.0
@@ -3312,8 +3327,17 @@ packages:
   '@types/katex@0.16.8':
     resolution: {integrity: sha512-trgaNyfU+Xh2Tc+ABIb44a5AYUpicB3uwirOioeOkNPPbmgRNtcWyDeeFRzjPZENO9Vq8gvVqfhaaXWLlevVwg==}
 
+  '@types/linkify-it@5.0.0':
+    resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
+
+  '@types/markdown-it@14.1.2':
+    resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
+
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
+
+  '@types/mdurl@2.0.0':
+    resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -4130,12 +4154,21 @@ packages:
     resolution: {integrity: sha512-b8AmV3kfQaqWAuacbPuNbL6vahnOJflOhexLzMMNLga62+/nh0JzvJ0aO/5a5MVgUFGS7Hu1P9P03o3fJkDCyw==}
     engines: {node: '>=12'}
 
+  d3@3.5.17:
+    resolution: {integrity: sha512-yFk/2idb8OHPKkbAL8QaOaqENNoMhIaSHZerk3oQsECwkObkCpJyjYwCe+OHiq6UEdhe1m8ZGARRRO3ljFjlKg==}
+
   d3@7.9.0:
     resolution: {integrity: sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==}
     engines: {node: '>=12'}
 
   dagre-d3-es@7.0.14:
     resolution: {integrity: sha512-P4rFMVq9ESWqmOgK+dlXvOtLwYg0i7u0HBGJER0LZDJT2VHIPAMZ/riPxqJceWMStH5+E61QxFra9kIS3AqdMg==}
+
+  dagre-d3-renderer@0.4.26:
+    resolution: {integrity: sha512-vOWj1uA4/APTrfDyfHaH/xpfXhPh9rszW+HOaEwPCeA6Afl06Lobfh7OpESuVMQW2QGuY4UQ7pte/p0WhdDs7w==}
+
+  dagre-layout@0.8.8:
+    resolution: {integrity: sha512-ZNV15T9za7X+fV8Z07IZquUKugCxm5owoiPPxfEx6OJRD331nkiIaF3vSt0JEY5FkrY0KfRQxcpQ3SpXB7pLPQ==}
 
   date-fns-jalali@4.1.0-0:
     resolution: {integrity: sha512-hTIP/z+t+qKwBDcmmsnmjWTduxCg+5KfdqWQvb2X/8C9+knYY6epN/pfxdDuyVlSVeFz0sM5eEfwIUQ70U4ckg==}
@@ -4674,6 +4707,12 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  graphlib@2.1.8:
+    resolution: {integrity: sha512-jcLLfkpoVGmH7/InMC/1hIvOPSUh38oJtGhvrOFGzioE1DZ+0YW16RgmOJhHiuWTvGiJQ9Z1Ik43JvkRPRvE+A==}
+
+  graphlibrary@2.2.0:
+    resolution: {integrity: sha512-XTcvT55L8u4MBZrM37zXoUxsgxs/7sow7YSygd9CIwfWTVO8RVu7AYXhhCiTuFEf+APKgx6Jk4SuQbYR0vYKmQ==}
+
   hachure-fill@0.5.2:
     resolution: {integrity: sha512-3GKBOn+m2LX9iq+JC1064cSFprJY4jL1jCXTcpnfER5HYE2l/4EfWSGzkPa/ZDBmYI0ZOEj5VHV/eKnPGkHuOg==}
 
@@ -4726,6 +4765,10 @@ packages:
 
   hastscript@9.0.1:
     resolution: {integrity: sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==}
+
+  he@1.2.0:
+    resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
+    hasBin: true
 
   hermes-estree@0.25.1:
     resolution: {integrity: sha512-0wUoCcLp+5Ev5pDW2OriHC2MJCbwLwuRx+gAqMTOkGKJJiBCLjtrvy4PWUGn6MIVefecRpzoOZ/UV6iGdOr+Cw==}
@@ -5191,6 +5234,12 @@ packages:
     resolution: {integrity: sha512-Je0fLJ0F5atA7F+eIlLzk+Wkcl57JDf4kf+EW8xiP5E31xOQxkIxTbgf1Oi1Lw9tRI9UEMRdI5Vz2xTzoNU1Jw==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
+  markdown-it-mermaid@0.2.5:
+    resolution: {integrity: sha512-ZUTFRX+cXEtWmn/9LMlpVklPJiDrHPWyHE/wamC2wm0Ojh1qOcuKWfWW3BqP83+7w6C59rS7M3OrGTs/u9mQTA==}
+
+  markdown-it-task-lists@2.1.1:
+    resolution: {integrity: sha512-TxFAc76Jnhb2OUu+n3yz9RMu4CwGfaT788br6HhEDlvWfdeJcLUsxk1Hgw2yJio0OXsxv7pyIPmvECY7bMbluA==}
+
   markdown-it@14.3.0:
     resolution: {integrity: sha512-RCEsPjR+sr0x+AuYp601tKTkgFG4YEPLCzHST3cQ/fhlJkqAkz1L2/Qbp1j9qw5SBwQHFBoW8+hoN5xssOF0Tw==}
     hasBin: true
@@ -5309,6 +5358,9 @@ packages:
 
   mermaid@11.16.0:
     resolution: {integrity: sha512-Zvm3kbstgdpvIJPPItlL7fppIZ3kibvc1oZIGxdvk9t6UFz6flv+Jw7FtRGKwfcI8OckmH04LqG6LlS6X4B1pA==}
+
+  mermaid@7.1.2:
+    resolution: {integrity: sha512-bDLu3fQuf3/R0fNkNzB0GTaF7+6SxnZpfTs9DVQF1ougsuP23MBzvEIGfL0ML8zeyg7+J2D+0AaoLVhskW5ulw==}
 
   methods@1.1.2:
     resolution: {integrity: sha512-iclAHeNqNm68zFtnZ0e+1L2yUIdvzNoauKU4WBA3VvH/vPFieF7qfRlwUZU+DA9P9bPXIS90ulxoUoCH23sV2w==}
@@ -5494,6 +5546,9 @@ packages:
   minizlib@3.1.0:
     resolution: {integrity: sha512-KZxYo1BUkWD2TVFLr0MQoM8vUUigWD3LlD83a/75BqC+4qE0Hb1Vo5v1FgcfaNXvfXzr+5EhQ6ing/CaBijTlw==}
     engines: {node: '>= 18'}
+
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
   motion-dom@12.42.2:
     resolution: {integrity: sha512-5gIMWLp/PycBtJRJWRgjxke5n8dlvkSn2DrYW+tr3XcqAZY1xZh6BJyooJXCM8wdfM7wfMjkBJNLge1CKPUIRA==}
@@ -9570,9 +9625,18 @@ snapshots:
 
   '@types/katex@0.16.8': {}
 
+  '@types/linkify-it@5.0.0': {}
+
+  '@types/markdown-it@14.1.2':
+    dependencies:
+      '@types/linkify-it': 5.0.0
+      '@types/mdurl': 2.0.0
+
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.3
+
+  '@types/mdurl@2.0.0': {}
 
   '@types/ms@2.1.0': {}
 
@@ -10369,6 +10433,8 @@ snapshots:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
 
+  d3@3.5.17: {}
+
   d3@7.9.0:
     dependencies:
       d3-array: 3.2.4
@@ -10406,6 +10472,18 @@ snapshots:
     dependencies:
       d3: 7.9.0
       lodash-es: 4.18.1
+
+  dagre-d3-renderer@0.4.26:
+    dependencies:
+      d3: 3.5.17
+      dagre-layout: 0.8.8
+      graphlib: 2.1.8
+      lodash: 4.18.1
+
+  dagre-layout@0.8.8:
+    dependencies:
+      graphlibrary: 2.2.0
+      lodash: 4.18.1
 
   date-fns-jalali@4.1.0-0: {}
 
@@ -11001,6 +11079,14 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  graphlib@2.1.8:
+    dependencies:
+      lodash: 4.18.1
+
+  graphlibrary@2.2.0:
+    dependencies:
+      lodash: 4.18.1
+
   hachure-fill@0.5.2: {}
 
   has-symbols@1.1.0: {}
@@ -11134,6 +11220,8 @@ snapshots:
       hast-util-parse-selector: 4.0.0
       property-information: 7.2.0
       space-separated-tokens: 2.0.2
+
+  he@1.2.0: {}
 
   hermes-estree@0.25.1: {}
 
@@ -11555,6 +11643,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  markdown-it-mermaid@0.2.5:
+    dependencies:
+      mermaid: 7.1.2
+
+  markdown-it-task-lists@2.1.1: {}
+
   markdown-it@14.3.0:
     dependencies:
       argparse: 2.0.1
@@ -11808,6 +11902,15 @@ snapshots:
       stylis: 4.4.0
       ts-dedent: 2.3.0
       uuid: 14.0.1
+
+  mermaid@7.1.2:
+    dependencies:
+      d3: 3.5.17
+      dagre-d3-renderer: 0.4.26
+      dagre-layout: 0.8.8
+      he: 1.2.0
+      lodash: 4.18.1
+      moment: 2.30.1
 
   methods@1.1.2: {}
 
@@ -12102,6 +12205,8 @@ snapshots:
   minizlib@3.1.0:
     dependencies:
       minipass: 7.1.3
+
+  moment@2.30.1: {}
 
   motion-dom@12.42.2:
     dependencies:

@@ -53,7 +53,8 @@ const tools = await mcpClient.getTools();
 const llm = new ChatOllama({
   model: "qwen3:14b",
   baseUrl: "http://192.168.1.2:11434",
-  temperature: 0.05,
+  temperature: 0,
+  numCtx: 19456
 }).bindTools(tools);
 
 const toolNode = new ToolNode(tools);

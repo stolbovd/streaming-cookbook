@@ -1,20 +1,68 @@
 <script setup lang="ts">
 import { useStream } from "@langchain/vue";
-import { computed, ref } from "vue";
+import MarkdownIt, { type PluginSimple } from "markdown-it";
+import markdownItMermaid from "markdown-it-mermaid";
+import markdownItTaskLists from "markdown-it-task-lists";
+import mermaid from "mermaid";
+import { computed, onUpdated, ref } from "vue";
+
+function unwrapPlugin(pluginModule: unknown): PluginSimple {
+  let plugin = pluginModule;
+
+  while (
+    typeof plugin === "object" &&
+    plugin !== null &&
+    "default" in plugin
+  ) {
+    plugin = plugin.default;
+  }
+
+  if (typeof plugin !== "function") {
+    throw new TypeError("Ожидалась функция плагина markdown-it");
+  }
+
+  return plugin as PluginSimple;
+}
+
+const markdown = new MarkdownIt({
+  breaks: true,
+  linkify: true,
+})
+  .use(unwrapPlugin(markdownItMermaid))
+  .use(unwrapPlugin(markdownItTaskLists));
+
+mermaid.initialize({
+  securityLevel: "strict",
+  startOnLoad: false,
+});
 
 const input = ref("");
 const theme = ref<"dark" | "light">("dark");
 const stream = useStream({
   assistantId: "agent",
-  apiUrl: "http://localhost:2024",
+  apiUrl: `${window.location.origin}/api`,
 });
 const visibleMessages = computed(() =>
   stream.messages.value.filter((message) => message != null)
 );
 
 function getMessageRole(type: string) {
-  return type === "human" ? "You" : "Assistant";
+  return type === "human" ? "Вы" : "Ассистент";
 }
+
+function renderMarkdown(content: string) {
+  return markdown.render(content);
+}
+
+onUpdated(() => {
+  const nodes = document.querySelectorAll<HTMLElement>(
+    ".message .mermaid:not([data-processed='true'])",
+  );
+
+  if (nodes.length > 0) {
+    void mermaid.run({ nodes, suppressErrors: true });
+  }
+});
 
 function handleSubmit() {
   const content = input.value.trim();
@@ -34,7 +82,7 @@ function handleSubmit() {
     <button
       class="theme-toggle"
       type="button"
-      :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      :aria-label="theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'"
       @click="theme = theme === 'dark' ? 'light' : 'dark'"
     >
       <svg
@@ -52,32 +100,9 @@ function handleSubmit() {
       </svg>
     </button>
 
-    <section class="hero-card">
-      <div class="framework-logo" aria-label="Vue logo" role="img">
-        <svg viewBox="0 0 128 128">
-          <path
-            d="M25.997 9.393l23.002.009L64.035 34.36 79.018 9.404 102 9.398 64.15 75.053z"
-            fill="#35495e"
-          />
-          <path
-            d="M.91 9.569l25.067-.172 38.15 65.659L101.98 9.401l25.11.026-62.966 108.06z"
-            fill="#41b883"
-          />
-        </svg>
-      </div>
-      <div class="eyebrow">langgraph streaming</div>
-      <div class="hero-copy">
-        <h1>Vue Chat</h1>
-        <p>
-          A compact chat example powered by <code>@langchain/vue</code> and the
-          streaming state exposed by <code>useStream</code>.
-        </p>
-      </div>
-    </section>
-
-    <section class="chat-card" aria-label="Chat messages">
+    <section class="chat-card" aria-label="Сообщения чата">
       <div v-if="visibleMessages.length === 0" class="empty-state">
-        Ask the agent about LangGraph streaming.
+        Задайте агенту вопрос по вашему YouTrack или по другой теме.
       </div>
 
       <div
@@ -87,27 +112,27 @@ function handleSubmit() {
         :class="{ user: message.type === 'human' }"
       >
         <span>{{ getMessageRole(message.type) }}</span>
-        <p>{{ message.text }}</p>
+        <div class="markdown-content" v-html="renderMarkdown(message.text)" />
       </div>
 
       <div
         v-if="visibleMessages.length === 0 && !stream.isLoading && stream.error"
         class="error"
       >
-        Could not reach the LangGraph server. Check that
-        <code>pnpm dev</code> is running, then try again.
+        Не удалось подключиться к серверу LangGraph. Убедитесь, что команда
+        <code>pnpm dev</code> запущена, и повторите попытку.
       </div>
     </section>
 
     <form class="composer" @submit.prevent="handleSubmit">
       <textarea
         v-model="input"
-        aria-label="Message"
-        placeholder="Ask a follow-up..."
+        aria-label="Сообщение"
+        placeholder="Задайте следующий вопрос..."
         rows="3"
       />
       <button type="submit" :disabled="input.trim() === ''">
-        Send
+        Отправить
       </button>
     </form>
   </main>
@@ -322,9 +347,71 @@ code {
   text-transform: uppercase;
 }
 
-.message p {
-  white-space: pre-wrap;
+.markdown-content {
   line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.markdown-content :deep(> :first-child) {
+  margin-top: 0;
+}
+
+.markdown-content :deep(> :last-child) {
+  margin-bottom: 0;
+}
+
+.markdown-content :deep(p),
+.markdown-content :deep(ul),
+.markdown-content :deep(ol),
+.markdown-content :deep(pre),
+.markdown-content :deep(blockquote) {
+  margin: 0 0 0.75rem;
+}
+
+.markdown-content :deep(pre) {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: var(--bg-primary);
+  padding: 14px;
+}
+
+.markdown-content :deep(code) {
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
+  padding: 0.12em 0.32em;
+}
+
+.markdown-content :deep(pre code) {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-content :deep(a) {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.markdown-content :deep(.contains-task-list) {
+  list-style: none;
+  padding-left: 0;
+}
+
+.markdown-content :deep(.task-list-item) {
+  list-style: none;
+}
+
+.markdown-content :deep(.task-list-item-checkbox) {
+  margin: 0 0.5em 0.2em 0;
+  vertical-align: middle;
+}
+
+.markdown-content :deep(.mermaid) {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #fff;
+  color: #030710;
+  padding: 14px;
 }
 
 .error {
